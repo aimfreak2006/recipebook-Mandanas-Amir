@@ -1,0 +1,10 @@
+{% extends 'ledger/base.html' %}
+
+{% block body %}
+    <h3> Second Recipe </h3>
+    <ul>
+        {% for ingredient in ingredients %}
+            <li> {{ingredient.name}} : {{ingredient.quantity}} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
