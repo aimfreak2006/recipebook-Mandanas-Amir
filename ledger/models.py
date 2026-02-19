@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 # each class is a table in the database
-# each attribute is a field in the database
+# each attribute is a field in the table
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
 
