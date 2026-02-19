@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import Recipe, Ingredient, RecipeIngredient
+#instead of using lists inside this views just use database
 recipes = [
     {
         "name": "Recipe 1",
@@ -67,13 +68,14 @@ ingredients_2 = [
 ]
 
 def recipe_list(request):
+    recipes = Recipe.objects.all()
     dictionary = {"recipes" : recipes}
     return render(request, "ledger/recipe_list.html", dictionary)
 
-def first_recipe(request):
-    dictionary = {"ingredients" : ingredients_1}
+def recipe_detail(request, pk):
+    recipe = Recipe.objects.get(pk=pk)
+    dictionary = {"recipies" : recipe}
     return render(request, "ledger/first_recipe.html", dictionary)
 
-def second_recipe(request):
-    dictionary = {"ingredients" : ingredients_2}
-    return render(request, "ledger/second_recipe.html", dictionary)
+def recipe_2(request):
+

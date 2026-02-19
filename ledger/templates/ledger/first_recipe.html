@@ -1,7 +1,7 @@
 {% extends 'ledger/base.html' %}
 
 {% block body %}
-    <h3> First Recipe </h3>
+    <h3> {{First Recipe}} </h3>
     <ul>
         {% for ingredient in ingredients %}
             <li> {{ingredient.name}} : {{ingredient.quantity}} </li>
