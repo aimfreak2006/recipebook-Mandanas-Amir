@@ -1,0 +1,9 @@
+{% extends 'ledger/base.html' %}
+
+{% block body %}
+    <h3> Logout </h3>
+    <form method="POST" action="{% url 'login'%}">
+        {% csrf_token %}
+        <button type="submit">Login again</button><a href="/acccounts/login/"> Login again </a>
+    </form>
+{% endblock %}

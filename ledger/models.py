@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse
-# from accounts.models import Profile
+from django.utils import timezone
+from django.contrib.auth.models import User
+from accounts.models import Profile
+
 
 # each class is a table in the database
 # each attribute is a field in the table
@@ -10,14 +13,17 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
-
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
-    # author = models.ForeignKey(
-    #     Profile,
-    #     on_delete=models.CASCADE,
-    #     related_name="recipe"
-    #     )
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name="recipes",
+        null="True",
+        blank="True",
+        )
+    created_on = models.DateTimeField(default=timezone.now())
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -30,6 +36,7 @@ class RecipeIngredient(models.Model):
     ingredient = models.ForeignKey(
         Ingredient, 
         on_delete=models.CASCADE,
+        related_name="recipes"
         )
     
     recipe = models.ForeignKey(
