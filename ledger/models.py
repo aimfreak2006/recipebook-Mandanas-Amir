@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from accounts.models import Profile
 
 # each class is a table in the database
 # each attribute is a field in the table
@@ -12,6 +13,11 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name="recipe"
+        )
 
     def __str__(self):
         return self.name
