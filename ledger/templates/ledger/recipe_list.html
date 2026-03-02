@@ -7,4 +7,5 @@
             <a href='{{ recipe.get_absolute_url }}'>{{recipe.name}}</a>
         {% endfor %}
     </ul>
+    <a href="{% url 'logout' %}">Logout</a>
 {% endblock %}
