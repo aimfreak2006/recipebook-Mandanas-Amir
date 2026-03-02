@@ -13,5 +13,5 @@ def recipe_list(request):
 def recipe_detail(request, pk):
     recipe = Recipe.objects.get(pk=pk)
     dictionary = {"recipe" : recipe}
-    return render(request, "ledger/recipes.html", dictionary)
+    return render(request, "ledger/recipe_detail.html", dictionary)
 
