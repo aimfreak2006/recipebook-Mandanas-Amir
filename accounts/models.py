@@ -3,6 +3,6 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    bio = models.TextField(min_length=255)
+    bio = models.TextField(max_length=255)
