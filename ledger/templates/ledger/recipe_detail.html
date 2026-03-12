@@ -1,18 +1,12 @@
 {% extends 'ledger/base.html' %}
 
 {% block body %}
-    <h2> {{ recipe.name }} by {{ recipe.author.name }}</h3>
+    <h2> {{ recipe.name }} by {{ recipe.author.name }}</h2>
     <ul>
         {% for recipe_ingredient in recipe.ingredients.all %}
             <li>{{ recipe_ingredient.ingredient.name }} : {{ recipe_ingredient.quantity }}</li>
         {% endfor %}
     </ul>
-
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" name="submit" value="Save Form">
-    </form>
 
     {% for image in recipe.images.all %}
         {% if image.recipe_image %}
@@ -20,6 +14,13 @@
         {% endif %}
     {% endfor %}
 
-    <a href=""></a>
+    <br>
+    <br>
+
+    <a href="/recipe/{{ recipe.pk }}/add"> Add image </a>
+
+    <br>
+
+    <a href="/recipes/list"> Back to List </a>
 
 {% endblock %}

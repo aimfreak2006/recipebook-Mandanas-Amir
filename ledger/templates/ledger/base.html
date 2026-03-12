@@ -17,12 +17,6 @@
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
-
-    {% else %}
-    <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
-        <button type="submit">Login</button>
-    </form>
     {% endif %}
 
 </body>

@@ -24,9 +24,13 @@ class RecipeIngredientForm(forms.ModelForm):
         model = RecipeIngredient
         fields = '__all__'
 
-class RecipeImageForm(forms.Form):
+class RecipeImageForm(forms.ModelForm):
     recipe_image = forms.ImageField(label="Submit a Picture")
-    description = forms.CharField(lable="Description")
+    description = forms.CharField(label="Description")
+    recipe = forms.ModelChoiceField(
+        label="Recipe", 
+        queryset=Recipe.objects.all(),
+        )
 
     class Meta:
         model = RecipeImage

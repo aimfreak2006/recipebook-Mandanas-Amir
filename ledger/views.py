@@ -6,17 +6,17 @@ from .forms import RecipeForm, RecipeIngredientForm, RecipeImageForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
-
+@login_required
 def recipe_list(request):
     recipes = Recipe.objects.all()
     dictionary = {"recipes" : recipes}
+    
     if (request.method == "POST"):
         recipe_form = RecipeForm(request.POST)
         if (recipe_form.is_valid):
             recipe_form.save()
             return redirect('/recipes/list') 
     return render(request, "ledger/recipe_list.html", dictionary)
-
 
 
 def recipe_add(request):
@@ -28,31 +28,27 @@ def recipe_add(request):
     }
     return render(request, "ledger/recipe_add.html", dictionary)
 
-def image_add(request):
+def image_add(request, pk):
     image_form = RecipeImageForm()
+    recipe = Recipe.objects.get(pk=pk)
+
     dictionary = {
+        "recipe" : recipe,
         "form" : image_form,
     }
-    return render(request, "ledger/image_add.html", dictionary)
+    return render(request, "ledger/adding_image.html", dictionary)
 
 def recipe_detail(request, pk):
-    ingredient_form = RecipeIngredientForm(request.POST)
-    image_form = RecipeImageForm(request.POST)
-
     recipe = Recipe.objects.get(pk=pk)
-    ingredients = Ingredient.objects.all()
 
     dictionary = {
-        "recipe" : recipe, 
-        "ingredients" : ingredients,
-        "form" : ingredient_form,
+        "recipe" : recipe,
     }
-
+    
     if (request.method == "POST"):
-        if (ingredient_form.is_valid):
-            ingredient_form.save()
-
+        image_form = RecipeImageForm(request.POST, request.FILES)
         if (image_form.is_valid):
             image_form.save()
+        
     return render(request, "ledger/recipe_detail.html", dictionary)
 
