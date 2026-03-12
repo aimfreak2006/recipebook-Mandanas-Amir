@@ -14,8 +14,17 @@ def recipe_list(request):
         recipe.created_on = request.POST.get("recipe_created")
         recipe.updated_on = request.POST.get("recipe_updated")
         recipe.save()
-        return render(request, 'ledger/recipe_list.html', dictionary)
     return render(request, "ledger/recipe_list.html", dictionary)
+
+@login_required
+def recipe_add(request):
+    if (request.method == "POST"):
+        recipe = Recipe()
+        recipe.name = request.POST.get("recipe_name")
+        recipe.author = request.POST.get("recipe_author")
+        recipe.created_on = request.POST.get("recipe_created")
+        recipe.updated_on = request.POST.get("recipe_updated")
+        recipe.save()
 
 @login_required
 def recipe_detail(request, pk):

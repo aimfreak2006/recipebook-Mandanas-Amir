@@ -1,0 +1,27 @@
+{% extends 'ledger/base.html' %}
+
+
+{% block body %}
+<form action="/" method="post">
+    {% csrf_token %}
+    <label for="recipe_name">
+        <span>Recipe Name</span>
+        <input type="text" id="recipe_name" name="recipe_name">
+    </label>
+
+    <label for="recipe_author">
+        <span>Recipe Author </span>
+        <input type="text" id="recipe_author" name="recipe_author">
+    </label>
+
+    <label for="recipe_created">
+        <span>Recipe Created On</span>
+        <input type="datetime-local" id="recipe_created" name="recipe_created">
+    </label>
+
+    <label for="recipe_updated">
+        <span>Recipe Updated On</span>
+        <input type="datetime-local" id="recipe_updated" name="recipe_updated">
+    </label>
+</form>
+{% endblock %}
