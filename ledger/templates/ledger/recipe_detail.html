@@ -7,4 +7,21 @@
             <li>{{ recipe_ingredient.ingredient.name }} : {{ recipe_ingredient.quantity }}</li>
         {% endfor %}
     </ul>
+
+    <form method="post">
+        {% csrf_token %}
+        <select name="ingredient" id="ingredient">
+            {% for ingredient in ings %}
+                <option value="{{ ingredient.pk }}">{{ ingredient.name }}</option></li>
+            {% endfor %}
+        </select>
+    
+        <label for="quantity">
+            <span>Quantity</span>
+            <input type="text" id="quantity" name="quantity">
+        </label>
+    
+        <input type="submit" name="submit" value="Save Form">
+    
+    </form>
 {% endblock %}
