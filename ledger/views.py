@@ -1,43 +1,58 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient, RecipeIngredient, RecipeImage
 from accounts.models import Profile
+from .forms import RecipeForm, RecipeIngredientForm, RecipeImageForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 
 def recipe_list(request):
     recipes = Recipe.objects.all()
     dictionary = {"recipes" : recipes}
-
     if (request.method == "POST"):
-        recipe = Recipe()
-        recipe.name = request.POST.get("recipe_name")
-        author_primary_key = int(request.POST.get("recipe_author"))
-        recipe.author = Profile.objects.get(pk=author_primary_key)
-        recipe.created_on = request.POST.get("recipe_created")
-        recipe.updated_on = request.POST.get("recipe_updated")
-        recipe.save()
-
+        recipe_form = RecipeForm(request.POST)
+        if (recipe_form.is_valid):
+            recipe_form.save()
+            return redirect('/recipes/list') 
     return render(request, "ledger/recipe_list.html", dictionary)
+
+
 
 def recipe_add(request):
     authors = Profile.objects.all()
-    dictionary = {"authors" : authors}
+    recipe_form = RecipeForm()
+    dictionary = {
+        "authors" : authors, 
+        "form" : recipe_form,
+    }
     return render(request, "ledger/recipe_add.html", dictionary)
 
-@login_required
+def image_add(request):
+    image_form = RecipeImageForm()
+    dictionary = {
+        "form" : image_form,
+    }
+    return render(request, "ledger/image_add.html", dictionary)
+
 def recipe_detail(request, pk):
+    ingredient_form = RecipeIngredientForm(request.POST)
+    image_form = RecipeImageForm(request.POST)
+
     recipe = Recipe.objects.get(pk=pk)
     ingredients = Ingredient.objects.all()
-    dictionary = {"recipe" : recipe, "ings" : ingredients}
+
+    dictionary = {
+        "recipe" : recipe, 
+        "ingredients" : ingredients,
+        "form" : ingredient_form,
+    }
 
     if (request.method == "POST"):
-        recipe_ingredient = RecipeIngredient()
-        recipe_ingredient.recipe = recipe
-        ingredient_primary_key = int(request.POST.get("ingredient"))
-        recipe_ingredient.ingredient = Ingredient.objects.get(pk=ingredient_primary_key)
-        recipe_ingredient.quantity = request.POST.get("quantity")
-        recipe_ingredient.save()
+        if (ingredient_form.is_valid):
+            ingredient_form.save()
 
+        if (image_form.is_valid):
+            image_form.save()
     return render(request, "ledger/recipe_detail.html", dictionary)
 

@@ -38,7 +38,6 @@ class RecipeIngredient(models.Model):
         on_delete=models.CASCADE,
         related_name="recipes"
         )
-    
     recipe = models.ForeignKey(
         Recipe, 
         on_delete=models.CASCADE,
@@ -47,7 +46,7 @@ class RecipeIngredient(models.Model):
 
 
 class RecipeImage(models.Model):
-    image = models.ImageField(upload_to='images/', null=True)
+    recipe_image = models.ImageField(upload_to='images/', null=True)
     description = models.CharField(max_length=255)
     recipe = models.ForeignKey(
         Recipe,
