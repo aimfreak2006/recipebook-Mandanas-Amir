@@ -3,7 +3,7 @@ from .views import recipe_list, recipe_detail, recipe_add
 
 urlpatterns = [
     path('recipes/list', recipe_list, name='recipe_list'),
-    path('recipe/add', recipe_add, name='recipe_add')
+    path('recipe/add', recipe_add, name="recipe_add"),
     path('recipe/<int:pk>', recipe_detail, name='recipe_detail'),
 ] 
 

@@ -2,17 +2,18 @@
 
 
 {% block body %}
-<form action="/" method="post">
+<form action="/recipes/list" method="post">
     {% csrf_token %}
     <label for="recipe_name">
         <span>Recipe Name</span>
         <input type="text" id="recipe_name" name="recipe_name">
     </label>
 
-    <label for="recipe_author">
-        <span>Recipe Author </span>
-        <input type="text" id="recipe_author" name="recipe_author">
-    </label>
+    <select name="recipe_author" id="recipe_author">
+        {% for author in authors %}
+            <option value="{{ author.pk }}"> {{ author.name }} </option>
+        {% endfor %}
+    </select>
 
     <label for="recipe_created">
         <span>Recipe Created On</span>
@@ -23,5 +24,8 @@
         <span>Recipe Updated On</span>
         <input type="datetime-local" id="recipe_updated" name="recipe_updated">
     </label>
+
+    <input type="submit" name="submit" value="Save Form">
+
 </form>
 {% endblock %}
