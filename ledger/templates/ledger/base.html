@@ -9,5 +9,19 @@
     <h1> Recipe Book </h1>
     {% block body %} 
     {% endblock %}
+
+    {% if user.is_authenticated %}
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+    {% else %}
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <button type="submit">Login</button>
+    </form>
+    {% endif %}
+
 </body>
 </html>

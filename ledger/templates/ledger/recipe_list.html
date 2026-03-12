@@ -4,11 +4,9 @@
     <h3> Recipe List </h3>
     <ul>
         {% for recipe in recipes %}
-            <a href='{{ recipe.get_absolute_url }}'>{{recipe.name}}</a>
+            <h2>{{ recipe.name }} by {{ recipe.author.name }}</h2>
+            <a href='{{ recipe.get_absolute_url }}'>{{ recipe.name }}_detail</a>
         {% endfor %}
     </ul>
-    <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    {{ form }}
 {% endblock %}

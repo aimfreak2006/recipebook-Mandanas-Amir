@@ -2,8 +2,8 @@
 
 {% block body %}
     <h3> Logout </h3>
-    <form method="POST" action="{% url 'login'%}">
+    <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
-        <button type="submit">Login again</button><a href="/acccounts/login/"> Login again </a>
+        <button type="submit">Login Again</button>
     </form>
 {% endblock %}

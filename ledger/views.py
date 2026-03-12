@@ -3,10 +3,18 @@ from django.http import HttpResponse
 from .models import Recipe, Ingredient, RecipeIngredient
 from django.contrib.auth.decorators import login_required
 
-@login_required
+
 def recipe_list(request):
     recipes = Recipe.objects.all()
     dictionary = {"recipes" : recipes}
+    if (request.method == "POST"):
+        recipe = Recipe()
+        recipe.name = request.POST.get("recipe_name")
+        recipe.author = request.POST.get("recipe_author")
+        recipe.created_on = request.POST.get("recipe_created")
+        recipe.updated_on = request.POST.get("recipe_updated")
+        recipe.save()
+        return render(request, 'ledger/recipe_list.html', dictionary)
     return render(request, "ledger/recipe_list.html", dictionary)
 
 @login_required

@@ -118,5 +118,5 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = '/ledger/recipes/'
-LOGOUT_REDIRECT_URL = '/ledger/recipes/'
+LOGIN_REDIRECT_URL = '/recipes/list'
+LOGOUT_REDIRECT_URL = '/recipes/list'
